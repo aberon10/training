@@ -1,0 +1,69 @@
+.panel {
+	margin: 2rem auto;
+	padding: 1rem 2rem;
+	max-width: 750px;
+	background-color: $white;
+	border-radius: 3px;
+
+	@include from(tablet) {
+		margin: 0 auto;
+	}
+
+  // sizes panels
+  &.panel-small {
+    min-width: 320px;
+    max-width: 480px;
+  }
+
+  &.panel-big {
+    max-width: 1200px;
+  }
+
+  .panel-header {
+    border-radius: 3px 3px 0 0;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid lighten($gray, 10%);
+  }
+
+  .panel-header__title {
+    text-align: left;
+  }
+
+  .panel-body {
+    border-radius: 0 0 3px 3px;
+    padding: 1rem 0;
+  }
+
+  .panel-headings {
+    padding: 1rem;
+  }
+
+  .panel-heading-2,
+  .panel-heading-3 {
+    font-size: 1.4rem;
+    color: $white;
+    font-weight: 300;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    text-align: left;
+  }
+
+  .panel-heading-3  {
+    font-size: 1rem;
+    color: $gray;
+  }
+
+  // buttons
+  .panel-button {
+    font-size: 1.5rem;
+    color: $gray;
+    cursor: pointer;
+  }
+
+  .panel-button__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+  }
+}
+

@@ -1,0 +1,10 @@
+{% extends './base.html' %} 
+{% block title %} {{ "Dashboard" }} {% endblock %} 
+{% block content %}
+<div>
+    <p>
+        <strong>Hello, </strong> {{request.session.name}}
+        <a href="/logout">Logout</a>
+    </p>    
+</div>
+{% endblock %}

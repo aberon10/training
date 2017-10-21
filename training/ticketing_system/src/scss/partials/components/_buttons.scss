@@ -1,0 +1,81 @@
+.buttons-group {
+    padding: .5rem;
+
+    @include from(tablet) {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .button {
+        max-width: auto;
+        width: 100%;
+    }
+}
+
+.button {
+  padding: .5rem 1rem;
+  text-align: center;
+  font-family: 'Open Sans', Verdana, Arial, sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  color: $white;
+  cursor: pointer;
+  transition: all .3s;
+  outline: none;
+  border: none;
+
+  span {
+    margin-left: .5rem;
+  }
+
+  @include from(tablet) {
+    display: inline;
+    max-width: 320px;
+  }
+
+  &.radius {
+    border-radius: 20px;
+  }
+
+  &.button-big  {
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+  }
+
+  &.button-black {
+    background-color: $black;
+    &:hover {
+      background-color: lighten($black, 10%);
+    }
+  }
+
+  &.button-cyan {
+    background-color: $alice-dark;
+    &:hover {
+      background-color: darken($alice-dark, 10%);
+    }
+  }
+
+  &.button-blue {
+    background-image: linear-gradient(180deg, $light-blue, $blue);
+    &:hover {
+      background-image: linear-gradient(180deg,#2e8dff,#006ff5);
+    }
+  }
+
+  &.button-gray {
+    background-color: $gray;
+    &:hover {
+      background-color: darken($gray, 10%);
+    }
+  }
+
+  &.button-scale {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+

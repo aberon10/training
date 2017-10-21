@@ -1,0 +1,18 @@
+.vscode/
+training/node_modules/
+training/ticketing_system/__pycache__/
+training/__pycache__/
+training/ticketing_system/src/scss/vendors/
+
+# Django stuff:
+*.log
+.static_storage/
+.media/
+local_settings.py
+training/**/*.pyc
+
+training/ticketing_system/migrations/
+
+# Flask stuff:
+instance/
+.webassets-cache

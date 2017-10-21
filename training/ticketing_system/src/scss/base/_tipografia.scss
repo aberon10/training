@@ -1,0 +1,38 @@
+// Importación de fuentes desde Google Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+// font-weight
+$light: 300;
+$normal: 400;
+$semi-bold: 600;
+$bold: 700;
+$extra-bold: 800;
+
+$body--font-family: 'Open Sans', sans-serif;
+$body--color: #20232a;
+
+// encabezados
+$header--font-family: 'Roboto',sans-serif; 
+$header--font-weight: $normal; 
+$header--text-transform: normal;
+$header--color: #333;
+
+// tamaño de los encabezados (h1,h2,h3,h4,h5,h6)
+$h1--font-size: 2rem;
+$h2--font-size: 1.7rem;
+$h3--font-size: 1.4rem;
+$h4--font-size: 1.2rem;
+$h5--font-size: 0.9rem;
+$h6--font-size: 0.8rem;
+
+// enlaces
+$link--color: #0F7CFF;
+$text-decoration: none;
+
+// párrafos
+$p--font-size: 1rem;
+$p--line-height: 1.5;
+$p--margin-bottom: 1rem;
+$p--font-weight: $normal;
+$p--text-align: justify;

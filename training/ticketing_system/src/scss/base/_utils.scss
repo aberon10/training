@@ -1,0 +1,22 @@
+.block {
+  display: block;
+  width: 100%;
+}
+
+.bold {
+  font-weight: $bold;
+}
+
+a.link {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.success {
+  color: $green;
+}
+
+.text-center {
+  text-align: center;
+}

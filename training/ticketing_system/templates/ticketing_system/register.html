@@ -1,0 +1,24 @@
+{% extends './base.html' %} 
+{% block title %} {{ 'Sign In' }} {% endblock %} 
+{% block content %}
+<div class="container-form">
+    <div class="panel panel-small">
+        <div class="panel-header">
+            <div class="panel-header__title">
+                <h1>Sign In</h1>
+            </div>            
+        </div>
+        <div class="panel-body">
+            {% if success %}
+            <p class="success  text-center">{{ message }} </p>
+            {% else %}
+            <form action="" method="POST">
+                {% csrf_token %} {% include "ticketing_system/form_snippet.html" with form=register_form %}
+                <button type="submit" value="Submit" class="button  button-big  button-blue  block  bold">Sign In</button>
+            </form>
+            {% endif %}
+        </div>
+        <a href="/login" class="link"> {% if not success %}  Do you have an account? {% endif %} Log in now</a>
+    </div>
+</div>
+{% endblock %}

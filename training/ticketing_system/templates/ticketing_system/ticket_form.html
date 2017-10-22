@@ -1,0 +1,24 @@
+{% extends './base.html' %} 
+{% block title %} Nuevo Ticket {% endblock title %} 
+{% block content %}
+{% include "./header.html" %} 
+<div class="container-form  boxed">
+    <div class="panel panel-small">
+        <div class="panel-header">
+            <div class="panel-header__title">
+                <h1>Create Ticket</h1>
+            </div>
+        </div>
+        <div class="panel-body">     
+            {% if response.error_form %}
+            <p class="error-message">{{ response.error_form }}</p>
+            {% endif %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% include "ticketing_system/form_snippet.html" with form=form %}
+                <button type="submit" class="button  button-big  button-blue  block  bold">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

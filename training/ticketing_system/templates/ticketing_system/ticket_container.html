@@ -1,0 +1,50 @@
+<div class="pane panel-big">
+    <div class="panel-header  flex-between">
+        <h1 class="panel-header__title  text-left">Tickets</h1>
+    </div>
+    <div class="panel-body">
+        <div class="ticket-container">
+            <div class="ticket-item  ticket-item__header">
+                <div class="ticket-item__id">N°</div>
+                <div class="ticket-item__title">title</div>
+                <div class="ticket-item__author">author</div>
+                <div class="ticket-item__assignto">assign to</div>
+                <div class="ticket-item__created">created at</div>
+                <div class="ticket-item__status">status</div>
+            </div>
+            {% for ticket in tickets %}
+            <div class="ticket-item">
+                <div class="ticket-item__id">{{ forloop.counter }}</div>
+                <div class="ticket-item__title">
+                    <a class="link" href="/ticket/{{ticket.id}}">
+                        <span class="ticket-label ticket-label__title">{{ ticket.title }}</span>
+                    </a>
+                </div>
+                <div class="ticket-item__author">
+                    <span class="ticket-label ticket-label__author">{{ ticket.author }}</span>
+                </div>
+                <div class="ticket-item__assignto">
+                    <span class="ticket-label ticket-label__assignto">
+                        {% if ticket.assignee is None %}
+                            ----
+                        {% else %}
+                             {{ticket.assignee}}
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="ticket-item__created">{{ ticket.created }}</div>
+                <div class="ticket-item__status">
+                    <span class="ticket-label  ticket-label__open">
+                        {% if ticket.status == 'O' %}
+                            open
+                        {% else %}
+                            closed
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="panel-footer"></div>
+</div>

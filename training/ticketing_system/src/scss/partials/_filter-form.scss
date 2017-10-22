@@ -1,0 +1,14 @@
+.form-filter{
+  background-color: transparent;
+  width: 100%;
+  max-width: auto;
+
+  @include from(tablet) {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .form-control {
+    margin-right: 1rem;
+  }
+}

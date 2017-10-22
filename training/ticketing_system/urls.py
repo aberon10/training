@@ -29,4 +29,9 @@ urlpatterns = [
         view=views.LogoutView.as_view(),
         name='logout'
     ),
+    url(
+        regex=r'^ticket/$',
+        view=views.TicketView.as_view(),
+        name='ticket'
+    ),
 ]

@@ -1,10 +1,10 @@
 {% extends './base.html' %} 
 {% block title %} {{ "Dashboard" }} {% endblock %} 
 {% block content %}
-<div>
-    <p>
-        <strong>Hello, </strong> {{request.session.name}}
-        <a href="/logout">Logout</a>
-    </p>    
+{% include "./header.html" %}
+{% include "./nav.html" %}
+{% include "./filter_form.html" %}
+<div class="boxed">
+{% include "./ticket_container.html" with tickets=tickets %}
 </div>
 {% endblock %}

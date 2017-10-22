@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from .models import User
+from .models import Ticket
 
 
 CLASSES_INPUT_FIELD = {
@@ -43,3 +44,22 @@ class LoginForm(forms.ModelForm):
             'email': forms.TextInput(attrs=CLASSES_INPUT_FIELD),
             'password': forms.PasswordInput(attrs=CLASSES_INPUT_FIELD),
         }
+
+
+class TicketCreateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['title', 'body', 'assignee']
+        widgets = {
+            'title': forms.TextInput(attrs=CLASSES_INPUT_FIELD),
+            'body': forms.Textarea(attrs=CLASSES_INPUT_FIELD),
+            'assignee': forms.SelectMultiple(
+                attrs={
+                    'class': 'form-control  select-multiple'
+                },
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TicketCreateForm, self).__init__(*args, **kwargs)
+        self.fields['assignee'].required = False

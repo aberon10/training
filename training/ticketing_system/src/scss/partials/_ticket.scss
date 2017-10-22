@@ -1,0 +1,69 @@
+.ticket-container {
+  width: 100%;
+  background-color: $white;
+  margin-top: 1rem;
+
+  .ticket-item {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem .5rem;
+      color: $black;
+      font-size: 1rem;
+      font-weight: $normal;
+      font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+      text-align: left;
+      border-bottom: 1px solid #CCC;
+      background-color: transparent;
+
+      &__assignto,
+      &__created,
+      &__status {
+        display: none;
+        @include from(tablet) {
+          display: block;
+        }
+      }
+
+      &:hover {
+          background-color: lighten(#CCC, 15%);
+      }
+  }
+}
+
+.ticket-item.ticket-item__header {
+  background-color: $blue;
+  color: $white;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: $blue;
+  }
+}
+
+.ticket-label {
+  padding: .3rem;
+  color: $white;
+
+  &__open {
+    background-color: $green;
+  }
+
+  &__closed {
+    background-color: $red;
+  }
+
+  &__title {
+    background-color: $orange;
+  }
+
+  &__author {
+    background-color: $light-blue;
+  }
+
+  &__assignto {
+    background-color: $teal;
+  }
+}
+

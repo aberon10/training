@@ -1,0 +1,16 @@
+<nav class="nav">
+    <div class="boxed">
+        <ul class="menu">
+            <li class="menu-item">
+                {% if current_path == 'dashboard' %}
+                <h1>Dashboard</h1>
+                {% endif %}
+            </li>
+            <li class="menu-item">
+                {% if current_path != 'ticket' %}
+                <a class="menu-link  link" href="/ticket">Create Ticket</a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>

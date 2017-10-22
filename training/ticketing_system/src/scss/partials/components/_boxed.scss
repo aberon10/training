@@ -1,7 +1,12 @@
 .boxed {
 	position: relative;
   margin: 0 auto;
-  padding: 0 2.5rem;
-  max-width: 1200px;
+  padding: 0 1rem;
+  width: 100%;
+
+  @include from(tablet) {
+    max-width: 1200px;
+    padding: 0 2.5rem;
+  }
 }
 

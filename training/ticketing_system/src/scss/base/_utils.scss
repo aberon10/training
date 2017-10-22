@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.no-margin {
+  margin: 0;
+}
+
 .bold {
   font-weight: $bold;
 }
@@ -19,4 +23,14 @@ a.link {
 
 .text-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

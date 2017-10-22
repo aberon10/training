@@ -10,8 +10,8 @@
             </div>
         </div>
         <div class="panel-body">     
-            {% if response.error_form %}
-            <p class="error-message">{{ response.error_form }}</p>
+            {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
             {% endif %}
             <form action="" method="POST">
                 {% csrf_token %}

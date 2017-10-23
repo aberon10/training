@@ -49,10 +49,22 @@ class LoginForm(forms.ModelForm):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'body', 'assignee']
+        fields = ['title', 'body', 'assignee', 'status', 'author', 'created']
         widgets = {
             'title': forms.TextInput(attrs=CLASSES_INPUT_FIELD),
             'body': forms.Textarea(attrs=CLASSES_INPUT_FIELD),
+            'author': forms.TextInput(attrs={
+                'class': 'form-control',
+                'readonly': 'readonly'
+            }),
+            'status': forms.Select(attrs={
+                'class': 'form-control',
+                'value': 'O'
+            }),
+            'created': forms.DateTimeInput(attrs={
+                'class': 'form-control',
+                'readonly': 'readonly'
+            }, format='%Y-%m-%d'),
             'assignee': forms.SelectMultiple(
                 attrs={
                     'class': 'form-control  select-multiple'
@@ -63,3 +75,6 @@ class TicketCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TicketCreateForm, self).__init__(*args, **kwargs)
         self.fields['assignee'].required = False
+        self.fields['author'].required = False
+        self.fields['status'].required = False
+        self.fields['created'].required = False

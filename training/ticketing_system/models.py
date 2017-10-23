@@ -25,12 +25,7 @@ class Ticket(models.Model):
     body = models.CharField(max_length=250)
     status = models.CharField(max_length=1, choices=STATUS, default='O')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    assignee = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='assigne',
-        null=True
-    )
+    assignee = models.ManyToManyField(User, related_name='assignee')
     created = models.DateField()
 
     def __str__(self):

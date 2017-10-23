@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+import time
 from django.db.models import Q
-from django.db.models import Count
 from django.shortcuts import render
-from django.utils import timezone
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.views.generic.edit import FormView
@@ -141,7 +141,10 @@ class DashboardView(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.session.get('user'):
             user = User.objects.get(email=request.session['user'])
-            tickets = Ticket.objects.filter(Q(author=user) | Q(assignee=user))
+            tickets = Ticket.objects.filter(
+                    Q(status='O'),
+                    Q(author=user) | Q(assignee=user)
+            ).distinct()
             return render(
                 request,
                 template_name=self.template_name,
@@ -165,56 +168,88 @@ class TicketView(FormView):
         if not request.session.get('user'):
             return HttpResponseRedirect('/login')
         else:
-            return super(TicketView, self).get(request, *args, **kwargs)
+            user = User.objects.get(email=request.session['user'])
+            try:
+                if kwargs['id_ticket']:
+                    try:
+                        ticket = Ticket.objects.filter(
+                            Q(pk=int(kwargs['id_ticket'])),
+                            Q(author=user) | Q(assignee=user)
+                        )[0]
+                    except Ticket.DoesNotExist:
+                        return HttpResponseNotFound('<h1>Page not found</h1>')
+                    else:
+                        form = self.form_class(initial={
+                            'title': ticket.title,
+                            'body': ticket.body,
+                            'author': ticket.author,
+                            'created': ticket.created,
+                            'status': ticket.status,
+                        })
+            except KeyError:
+                form = self.form_class(initial={
+                    'author': request.session['user'],
+                    'created': time.strftime('%Y-%m-%d'),
+                    'status': 'O',
+                    'assignee': user.id
+                })
+
+            return render(
+                request,
+                template_name=self.template_name,
+                context={'form': form}
+            )
 
     def post(self, request, *args, **kwargs):
         error_message = ''
-        title = request.POST.get('title')
-        body = request.POST.get('body')
+        ticket = Ticket()
         assignees_users = request.POST.getlist('assignee')
-
         form = TicketCreateForm({
-            'title': title,
-            'body': body
+            'title': request.POST.get('title'),
+            'body': request.POST.get('body'),
+            'status': request.POST.get('status'),
+            'created': request.POST.get('created')
         })
 
         if form.is_valid():
             title = form.cleaned_data['title']
             body = form.cleaned_data['body']
             email = self.request.session['user']
+            created = form.cleaned_data['created']
+            status = form.cleaned_data['status']
             author = User.objects.get(email=email)
-            ticket = Ticket(
-                title=title,
-                body=body,
-                author=author,
-                created=timezone.now()
-            )
 
-            if assignees_users and assignees_users[0] != '':
-                try:
-                    for assignee in assignees_users:
-                        ticket.assignee = User.objects.get(pk=int(assignee))
-                        ticket.save()
-                        ticket = Ticket(
-                            title=title,
-                            body=body,
-                            author=author,
-                            created=timezone.now()
-                        )
+            try:
+                if kwargs['id_ticket']:
+                    ticket = Ticket.objects.get(pk=int(kwargs['id_ticket']))
+                    for item in ticket.assignee.all():
+                        user = User.objects.get(pk=int(item.id))
+                        ticket.assignee.remove(user)
 
-                    return HttpResponseRedirect('/dashboard')
-                except User.DoesNotExist:
-                    error_message = 'Error creating ticket'
+            except KeyError:
+                pass
+
+            try:
+                users = []
+                for user in assignees_users:
+                    users.append(User.objects.get(pk=int(user)))
+            except User.DoesNotExist:
+                error_message = 'Error creating ticket'
             else:
+                ticket.title = title
+                ticket.body = body
+                ticket.author = author
+                ticket.created = created
+                ticket.status = status
                 ticket.save()
+                ticket.assignee.set(users)
                 return HttpResponseRedirect('/dashboard')
 
         return render(
             request,
             template_name=self.template_name,
             context={
-                'form': form,
-                'error_message': error_message,
-                'assignees_users': assignees_users
+                'form': TicketCreateForm(request.POST),
+                'error_message': error_message
             }
         )

@@ -1,15 +1,13 @@
-{% extends './base.html' %} 
-{% block title %} Nuevo Ticket {% endblock title %} 
-{% block content %}
-{% include "./header.html" %} 
+{% extends './base.html' %} {% block title %} Nuevo Ticket {% endblock title %} {% block content %} 
+{% include "./header.html" %}
 <div class="container-form  boxed">
-    <div class="panel panel-small">
+    <div class="panel panel-big">
         <div class="panel-header">
             <div class="panel-header__title">
                 <h1>Create Ticket</h1>
             </div>
         </div>
-        <div class="panel-body">     
+        <div class="panel-body">
             {% if error_message %}
             <p class="error-message">{{ error_message }}</p>
             {% endif %}

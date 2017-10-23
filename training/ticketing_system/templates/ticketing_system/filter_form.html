@@ -2,8 +2,8 @@
     <form action="" method="POST">
         {% csrf_token %}
         <div class="flex-between">
-            <input type="text" name="ticket-name" id="id-ticket-name" class="form-control" placeholder="Ticket name">
-            <select name="ticket-status" id="id-ticket-status" class="form-control">
+            <input type="text" name="title" id="title" class="form-control" placeholder="Title">
+            <select name="status" id="id-status" class="form-control">
                 <optgroup label="Status">
                     <option value="O" selected>Open</option>
                     <option value="C">Closed</option>

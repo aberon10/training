@@ -145,6 +145,32 @@ class DashboardView(TemplateView):
                     Q(status='O'),
                     Q(author=user) | Q(assignee=user)
             ).distinct()
+
+            return render(
+                request,
+                template_name=self.template_name,
+                context={
+                    'current_path': request.path.split('/')[1],
+                    'tickets': tickets
+                }
+            )
+        else:
+            return HttpResponseRedirect('/login')
+
+    def post(self, request, *args, **kwargs):
+        if request.session['user']:
+            title = request.POST.get('title')
+            status = request.POST.get('status')
+            user = User.objects.get(email=request.session['user'])
+            tickets = Ticket.objects.all()
+
+            if title != '':
+                tickets = tickets.filter(title__icontains=title)
+            tickets = tickets.filter(
+                Q(status=status),
+                Q(author=user) | Q(assignee=user)
+            ).distinct()
+
             return render(
                 request,
                 template_name=self.template_name,
@@ -185,6 +211,7 @@ class TicketView(FormView):
                             'author': ticket.author,
                             'created': ticket.created,
                             'status': ticket.status,
+                            'assignee': ticket.assignee.all()
                         })
             except KeyError:
                 form = self.form_class(initial={
@@ -224,7 +251,9 @@ class TicketView(FormView):
 
                 try:
                     if kwargs['id_ticket']:
-                        ticket = Ticket.objects.get(pk=int(kwargs['id_ticket']))
+                        ticket = Ticket.objects.get(
+                                    pk=int(kwargs['id_ticket'])
+                                )
                         for item in ticket.assignee.all():
                             user = User.objects.get(pk=int(item.id))
                             ticket.assignee.remove(user)

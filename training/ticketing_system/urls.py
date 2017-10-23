@@ -39,4 +39,9 @@ urlpatterns = [
         view=views.TicketView.as_view(),
         name='ticket'
     ),
+    url(
+        regex=r'^ticket/(?P<id_ticket>[0-9]+)/delete/$',
+        view=views.TicketDeleteView.as_view(),
+        name='ticket'
+    ),
 ]
